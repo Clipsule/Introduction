@@ -1,0 +1,119 @@
+/* ========================================================
+   晴れ猫 · CLIPSULE — Merged Stylesheet
+   融合移动端 + 桌面端自定义样式，含响应式视图切换
+   ======================================================== */
+
+/* ===== 响应式视图切换 (Responsive View Switching) ===== */
+.mobile-view { display: block; }
+.desktop-view { display: none; }
+
+@media (min-width: 768px) {
+  .mobile-view { display: none; }
+  .desktop-view { display: block; }
+}
+
+/* ===== 全局基础 (Body Base) ===== */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* 移动端 body 样式 */
+@media (max-width: 767px) {
+  body {
+    background-color: #faf8f5;
+    color: #1c1a18;
+    font-family: system-ui, -apple-system, sans-serif;
+    padding-bottom: 3rem;
+  }
+  ::selection { background-color: #fce7e9; color: #c43f5b; }
+}
+
+/* 桌面端 body 样式 */
+@media (min-width: 768px) {
+  body {
+    background-color: #fbfaf7;
+    color: #1f1e1d;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    background-image: radial-gradient(rgba(31, 30, 29, 0.035) 1px, transparent 0);
+    background-size: 18px 18px;
+  }
+  ::selection { background-color: #e05370; color: #fff; }
+}
+
+/* ========================================================
+   移动端自定义样式 (Mobile Custom Styles)
+   ======================================================== */
+.font-cormorant { font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; }
+.font-mono-code { font-family: 'JetBrains Mono', monospace; font-feature-settings: "tnum" 1, "zero" 1; }
+.stamp-badge { letter-spacing: 0.12em; text-transform: uppercase; }
+.bg-grid-archival { background-size: 24px 24px; background-image: radial-gradient(circle, #d6cebf 0.75px, transparent 0.75px); }
+.text-vertical { writing-mode: vertical-rl; }
+
+/* ========================================================
+   桌面端自定义样式 (Desktop Custom Styles)
+   ======================================================== */
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; line-height: 1; }
+
+@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+.animate-marquee { display: flex; width: 200%; animation: marquee 32s linear infinite; }
+
+.italic-serif { font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-style: italic; }
+
+.hairline-b { border-bottom: 1px solid rgba(31, 30, 29, 0.12); }
+.hairline-t { border-top: 1px solid rgba(31, 30, 29, 0.12); }
+.hairline-r { border-right: 1px solid rgba(31, 30, 29, 0.12); }
+.hairline-l { border-left: 1px solid rgba(31, 30, 29, 0.12); }
+.hairline-all { border: 1px solid rgba(31, 30, 29, 0.12); }
+
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
+.fade-up.in-view { opacity: 1; transform: translateY(0); }
+.stagger-item { opacity: 0; transform: translateY(18px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
+.in-view .stagger-item, .fade-up.in-view .stagger-item { opacity: 1; transform: translateY(0); }
+
+.interactive-card { position: relative; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, background-color 0.25s ease; will-change: transform, box-shadow; transform-style: preserve-3d; overflow: hidden; }
+.interactive-card:hover { box-shadow: 0 16px 36px -10px rgba(31, 30, 29, 0.15), 0 0 0 1px rgba(224, 83, 112, 0.28); }
+
+.glare-overlay { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.28) 0%, transparent 65%); opacity: 0; transition: opacity 0.3s ease; mix-blend-mode: overlay; z-index: 10; }
+
+.bloom-trigger { position: relative; cursor: pointer; overflow: hidden; border-radius: 2px; transition: all 0.3s ease; }
+.bloom-trigger:hover { background-color: rgba(224, 83, 112, 0.05); }
+.bloom-ripple { position: absolute; border-radius: 9999px; background: radial-gradient(circle, rgba(224, 83, 112, 0.35) 0%, rgba(244, 140, 160, 0.15) 50%, transparent 80%); transform: scale(0); animation: bloomRipple 0.9s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; pointer-events: none; z-index: 1; }
+@keyframes bloomRipple { 0% { transform: scale(0); opacity: 0.8; } 100% { transform: scale(3.5); opacity: 0; } }
+
+#petals-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 15; }
+
+#custom-cursor-dot, #custom-cursor-ring { pointer-events: none; position: fixed; top: 0; left: 0; border-radius: 9999px; z-index: 9999; transform: translate(-50%, -50%); transition: opacity 0.25s ease, border-color 0.2s ease, background-color 0.2s ease; }
+#custom-cursor-dot { width: 6px; height: 6px; background-color: #e05370; transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease; }
+#custom-cursor-ring { width: 32px; height: 32px; border: 1px dashed rgba(224, 83, 112, 0.55); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border 0.2s ease, background-color 0.2s ease; }
+body.cursor-hover #custom-cursor-ring { width: 54px; height: 54px; border: 1.5px solid #e05370; background-color: rgba(224, 83, 112, 0.08); }
+body.cursor-hover #custom-cursor-dot { width: 4px; height: 4px; background-color: #e05370; }
+body.cursor-clicking #custom-cursor-ring { transform: translate(-50%, -50%) scale(0.85); }
+
+#editorial-toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 9990; transform: translateY(140%) scale(0.95); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; opacity: 0; pointer-events: none; }
+#editorial-toast.show { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+
+@keyframes flyPlane { 0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; } 40% { transform: translate(20px, -18px) scale(1.15) rotate(15deg); opacity: 0.9; } 100% { transform: translate(65px, -50px) scale(0.4) rotate(35deg); opacity: 0; } }
+.animating-plane { animation: flyPlane 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important; }
+
+.tactile-tag { transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; will-change: transform; }
+.tactile-tag:hover { transform: translateY(-2px); box-shadow: 0 4px 10px -2px rgba(224, 83, 112, 0.18); }
+.tactile-tag:active { transform: scale(0.96) translateY(0); }
+
+.reveal-line { background-size: 0% 2px; background-repeat: no-repeat; background-position: left bottom; transition: background-size 0.8s cubic-bezier(0.16, 1, 0.3, 1); background-image: linear-gradient(to right, #e05370, #f48ca0); }
+.in-view .reveal-line, .reveal-line.active, .reveal-line:hover { background-size: 100% 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  #custom-cursor-dot, #custom-cursor-ring, #petals-canvas { display: none !important; }
+  .fade-up, .stagger-item { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .animate-marquee { animation: none !important; }
+  .interactive-card { transform: none !important; transition: none !important; }
+  .interactive-card:hover { transform: none !important; }
+  .tactile-tag:hover { transform: none !important; }
+}
